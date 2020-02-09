@@ -10,11 +10,22 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
-int a[MAXN];
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++)  a[i] = i + 1;
-
+    int T;
+    cin >> T;
+    while (T--){
+        int n;
+        cin >> n;
+        int a[n];
+        LL s = 0;
+        int ans = 0;
+        for (int i = 0; i < n; i++){
+            cin >> a[i];
+            if (a[i] == 0)  ans++, a[i]++;
+            s+=a[i];
+        }
+        if (s == 0) ans++;
+        cout << ans << endl;
+    }
 }
