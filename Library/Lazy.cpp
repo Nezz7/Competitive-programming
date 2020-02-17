@@ -1,11 +1,8 @@
-void updateRange(int node, int start, int end, int l, int r, int val)
-{
-    if(lazy[node] != 0)
-    { 
+void updateRange(int node, int start, int end, int l, int r, int val){
+    if(lazy[node] != 0){ 
         // This node needs to be updated
         tree[node] += (end - start + 1) * lazy[node];    // Update it
-        if(start != end)
-        {
+        if(start != end){
             lazy[node*2] += lazy[node];                  // Mark child as lazy
             lazy[node*2+1] += lazy[node];                // Mark child as lazy
         }
@@ -13,12 +10,10 @@ void updateRange(int node, int start, int end, int l, int r, int val)
     }
     if(start > end or start > r or end < l)              // Current segment is not within range [l, r]
         return;
-    if(start >= l and end <= r)
-    {
+    if(start >= l and end <= r){
         // Segment is fully within range
         tree[node] += (end - start + 1) * val;
-        if(start != end)
-        {
+        if(start != end)        {
             // Not leaf node
             lazy[node*2] += val;
             lazy[node*2+1] += val;
@@ -31,16 +26,13 @@ void updateRange(int node, int start, int end, int l, int r, int val)
     tree[node] = tree[node*2] + tree[node*2+1];        // Updating root with max value 
 }
 
-int queryRange(int node, int start, int end, int l, int r)
-{
+int queryRange(int node, int start, int end, int l, int r){
     if(start > end or start > r or end < l)
         return 0;         // Out of range
-    if(lazy[node] != 0)
-    {
+    if(lazy[node] != 0){
         // This node needs to be updated
         tree[node] += (end - start + 1) * lazy[node];            // Update it
-        if(start != end)
-        {
+        if(start != end){
             lazy[node*2] += lazy[node];         // Mark child as lazy
             lazy[node*2+1] += lazy[node];    // Mark child as lazy
         }
@@ -54,4 +46,3 @@ int queryRange(int node, int start, int end, int l, int r)
     return (p1 + p2);
 }
 
-// merge(sTree[2*idx+1].begin(), sTree[2*idx+1].end(),  sTree[2*idx+2].begin(), sTree[2*idx+2].end(), 
