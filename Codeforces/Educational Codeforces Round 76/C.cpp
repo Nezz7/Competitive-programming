@@ -10,17 +10,25 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
+int last[MAXN];
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
     int T;
     cin >> T;
     while (T--){
-        int n,x,a,b;
-        cin >> n >> x >> a >> b;
-        if (a > b) swap(a,b);
-        int ans = 0;
-        ans = (b - a ) + x;
-        ans = min(n - 1, ans);
-        cout << ans << endl;
+        int n;
+        cin >> n; 
+        for (int i = 0; i <= n; i++){
+            last[i] =-1;
+        }
+        int ans = 1e9;
+        for (int i = 0; i < n; i++){
+            int x;
+            cin >> x;
+            if (last[x] != -1) ans = min(ans,i-last[x] + 1);
+            last[x] = i;
+        }
+        if (ans == 1e9) cout << -1 << endl;
+        else cout << ans << endl;
     }
 }
