@@ -22,18 +22,19 @@ int main (){
     cin>>s>>t;
     dist[s]=0;
     priority_queue <pair <int,int> , vector <pair <int,int> >, greater <pair <int,int> > >pq;
-    pq.push (mk(0,s));
+    pq.push ({0,s});
+    dist[s] = 0;
     while (!pq.empty()){
-        int u=pq.top().second;
-        int d=pq.top().first;
+        int u = pq.top().second;
+        int d = pq.top().first;
         pq.pop();
-        if (d>dist[u]) continue;
-        for (int i=0;i<adj[u].size();i++){
+        if (d > dist[u]) continue;
+        for (int i=0;i < adj[u].size();i++){
             int child =adj[u][i].first;
             int w=adj[u][i].second;
-            if (dist[child]>dist[u]+w){
-                dist[child]=dist[u]+w;
-                pq.push(mk(dist[child],child));
+            if (dist[child] > dist[u] + w){
+                dist[child] = dist[u]+w;
+                pq.push( { dist[child], child } );
             }
         }
     }
