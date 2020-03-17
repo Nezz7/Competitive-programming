@@ -1,23 +1,30 @@
 #include <bits/stdc++.h>
 #define LL long long int
 using namespace std;
-int const MAXN = 2e6+9;
+int const MAXN = 2e5+9;
 int m, n, k, t;
 int a[MAXN];
+int occ[MAXN];
 vector<pair<pair<int,int>,int>> v;
 bool check (int x){
     int mn = a[x-1];
-    int cur = n;
-    int l = 0, r = 0;
+    LL ret = 0;
+    memset(occ,0,sizeof occ);
     for (int i = 0; i < k; i++){
-        if (v[i].second < mn ) continue;
-        if (v[i].first.second <= r) continue;
-        if (v[i].first.first > r){
-            cur
+        int d = v[i].second;
+        int l = v[i].first.first;
+        int r = v[i].first.second;
+        if (d > mn){
+            occ[l]++;
+            occ[r+1]--;
         }
-    }S
-
-    return
+    }
+    for (int i = 1; i < MAXN;i++){
+        occ[i] += occ[i-1];
+        ret += 2 * (occ[i]> 0);
+    }
+    ret += n + 1;
+    return ret <= t;
 }
 int main(){
     ios_base::sync_with_stdio(0);
@@ -25,7 +32,6 @@ int main(){
     cin >> m >> n >> k >> t;
     for (int i  = 0; i < m; i++)
         cin >> a[i];
-        n++;
     sort (a,a+m);
     reverse(a,a+m);
     for (int i = 0; i < k ;i++){
@@ -37,7 +43,7 @@ int main(){
     int ans = 0;
     int l  = 1, r = m;
     while (l <= r){
-        int mid = (r+l)/2;
+        int mid = (r + l)/2;
         if (check (mid)){
             ans = mid;
             l = mid + 1;
@@ -45,5 +51,4 @@ int main(){
 
     }
     cout << ans << "\n";
-
 }
