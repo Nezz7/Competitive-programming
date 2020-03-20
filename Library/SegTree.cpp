@@ -1,9 +1,11 @@
 struct SegTree{
-    int tree[4*MAXN];
-    int a[MAXN];
+    vector<int> tree[;
+    vector<int> a;
     const int MYZERO = ; //ZERO OF F
     SegTree(vector<int>&v){
         int n = v.size();
+        a.assign(n, 0);
+        tree.assign(4*n, 0);
         for(int i = 0; i < n; i++)
             a[i] = v[i];
         build(1,0,n-1);
