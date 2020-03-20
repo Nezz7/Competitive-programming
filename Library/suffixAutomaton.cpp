@@ -99,13 +99,13 @@ struct suffixAutomaton{
 		}
 		return st[cur].cnt;
 	}
-    int dfs (int i, int pos){
+    int dfs (int i,string& p, int pos){
         if (pos == p.size()) return 1;
         char c = p[pos] - offset;
         if (i == 0  && st[0].nxt[c] == -1) return -1e9;
-        if (st[i].nxt[c] == -1) return 1 + dfs(0,pos); 
+        if (st[i].nxt[c] == -1) return 1 + dfs(0,p,pos); 
         int go = st[i].nxt[c];
-        return  dfs(go,pos+1); 
+        return  dfs(go,p,pos+1); 
     }
     
 };
