@@ -1,13 +1,9 @@
-nt a[MAXN],st[MAXN][K];
+int a[MAXN],st[MAXN][K];
+int lg[MAXN];
+
 int f(int a, int b){
     // define function
 }
-int gcd(int a, int b){
-    if(a > b)return gcd(b, a);
-    if(a == 0)return b;
-    return gcd(b % a, a);
-}
-int lg[MAXN];
 int get (int L, int R){
     int j = lg[R - L + 1];
     return f(st[L][j], st[R - (1 << j) + 1][j]);

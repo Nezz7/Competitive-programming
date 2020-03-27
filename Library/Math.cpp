@@ -1,7 +1,8 @@
 const LL mod = 1e9 + 7;
-int gcd (int a, int b){
-    if (!b) return a;
-    return gcd(b, a % b);
+int gcd(int a, int b){
+    if(a > b)return gcd(b, a);
+    if(a == 0)return b;
+    return gcd(b % a, a);
 }
 inline LL add(LL x, LL y){
     x += y;
@@ -13,7 +14,7 @@ inline LL sub(LL x, LL y){
     if(x < 0) x += mod;
     return x;
 }
-inline LL mult(LL x, LL y){
+inline LL mul(LL x, LL y){
     return x * 1ll * y % mod;
 }
 LL fast(LL b, LL e){

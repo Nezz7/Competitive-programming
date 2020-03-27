@@ -11,18 +11,24 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
-LD fast(LD b, LL e){
-    if(!e)return 1.L;
-    if(e&1)return b * fast(b,e-1) ;
-    return fast(b * b, e >> 1);
-}
+int vis[MAXN];
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    int n,m;
-    cin >> m >> n;
-    LD ans = 0;
-    for (int i = 1; i <= m; i++){
-        ans+= (fast(i/(long double) m ,n) - fast((i-1)/(long double) m,n)) * i;
+    int n,r;
+    cin >> n >> r;
+    for(int i = 0; i < r; i++){
+        int x;
+        cin >> x;
+        vis[x] = 1;
     }
-    cout << setprecision(26) << ans;
+    bool cond = false;
+    for(int i = 1; i <= n; i++){
+        if(!vis[i]){
+            cond = true;
+            cout << i <<  " ";
+        }
     }
+    if(!cond){
+        cout <<"*";
+    }
+}

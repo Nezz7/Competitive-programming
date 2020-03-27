@@ -46,7 +46,6 @@ struct SegTree{
 };
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    float time_req = clock();
     int n;
     cin >> n;
     vector<int> v(n);
@@ -61,6 +60,7 @@ int main(){
     int q;
     cin >> q;
     map<pair<int,int>,pair<int,int>> res;
+    vector<pair<int,int>> go;
     while(q--){
         int l,r;
         cin >> l >> r;
@@ -68,6 +68,16 @@ int main(){
         int mn,mx,l1=l,r1=r;
         do{
             l = l1, r = r1;
+            go.pb({l,r});
+            if(res.count({l,r})){
+                for(auto cur : go){
+                    res[cur] = res[{l,r}];
+                }
+                go.clear();
+                l = res[{l1,r1}].first;
+                r = res[{l1,r1}].second;
+                break;
+            }
             auto x  = atree.query(1,0,n-1,l,r);
             mn = x.second;
             mx = x.first;
@@ -75,8 +85,11 @@ int main(){
             l1 = y.second;
             r1 = y.first;
         }while(l1 != l or r1 != r);
+           for(auto cur : go){
+                    res[cur] = {l,r};
+            }
+            go.clear();
+
         cout << l1 + 1 << " " << r1 + 1 << endl;
     }
-    	time_req = clock() - time_req;
-	cout << "Using pow function, it took " << (float)time_req/CLOCKS_PER_SEC << " seconds" << endl;
 }
