@@ -1,54 +1,51 @@
-  
-#include<cstdio>
-#include<iostream>
-#include<string>
-#include<cstdlib>
-#include<queue>
-#include<stack>
-#include<utility>
-#include<string>
-#include<cstring>
-#include<set>
-#include<cmath>
-#include<vector>
-#include<fstream>
-#include<map>
-#include<list>
-#include<algorithm>
+/*
+we will solve it using inclusion exclusion, find number of subsets with gcd != 1 then subtract it from N choose 4.
+fix the gcd (g) from larger to smaller, find count of numbers divisible by g,
+add count of subsets could be formed by these numbers,and subtract this count from all divisors of g
+so that we will not count it again for them.
+Complexity O(N.sqrt(N)),sqrt(N) for finding divisors.
+*/
 
-typedef long long int LLD;
-typedef unsigned long long int LLU;
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int permut[13][100];
+typedef pair<int,int > pp;
+typedef long long ll;
 
-void init(){
-	for(int i=0;i<13;i++)
-		for(int j=0;j<100;j++)
-			permut[i][j] = 0;
-}
+int const N=1e4+10,oo=1e9,M=5e5;
+ll const OO=1e18;
+int mod=oo+7;
+double const eps=5e-6;
 
-void prepare(){
-	permut[1][0] = 1;
-	for(int i = 1;i<12;i++){
-		for(int j = 0;permut[i][j];j++){
-			int val = permut[i][j];
-			for(int k = j, cnt = 0;cnt < i+1;k++, cnt++)
-				permut[i+1][k] += val;
-		}
-	}
-}
-
+int n,fr[N];
+ll C[N],sv[N];
 int main(){
-	
-	init();
-	prepare();
-	int t, n, k;
-	scanf("%d", &t);
-	while(t--){
-		scanf("%d %d", &n, &k);
-		printf("%d\n", permut[n][k]);
-	}
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    C[4]=1;
+    for(int i=5;i<N;i++)C[i]=C[i-1]*1LL*i/(i-4);
+    while(cin>>n&&!cin.eof()){
+        int mx=0;
+        for(int i=0;i<n;i++){
+            int a;
+            cin>>a;
+            fr[a]++;
+            mx=max(mx,a);
+        }
+        ll cnt=0;
+        for(int i=mx;i>1;i--){
+            int h=0;
+            for(int j=i;j<=mx;j+=i)h+=fr[j];
+            sv[i]+=C[h];
+            cnt+=sv[i];
+            for(int j=2;j*j<=i;j++){
+                if(i%j)continue;
+                sv[j]-=sv[i];
+                if(j*j!=i)sv[i/j]-=sv[i];
+            }
+        }
+        for(int i=1;i<=mx;i++)fr[i]=sv[i]=0;
+        cout<<C[n]-cnt<<'\n';
+    }
     return 0;
 }
