@@ -12,6 +12,9 @@ using namespace std;
 int const MAXN = 2e5 + 9;
 int d1[MAXN],dn[MAXN],a[MAXN];
 vector<vector<int>> adj;
+bool cmp(int a, int b){
+    return d1[a] < d1[b];
+}
 void bfs (int s, int * dist){
     queue <int>  q;
     q.push(s);
@@ -45,25 +48,13 @@ int main(){
     }
     bfs(1,d1);
     bfs(n,dn);
-    int mx = a[0];
-    for (int i = 0; i < k ; i++){
-        if (d1[mx] < d1[a[i]]) mx = a[i];
+    sort(a,a+k,cmp);
+    int ans = 0;
+    for (int i = 1; i < k; i++){
+        int u = a[i - 1];
+        int v = a[i];
+        ans = max(ans,d1[u] + 1 + dn[v]);
     }
-    LL cur = 0;
-    for (int i = 0; i < k; i++){
-        if (a[i] == mx) continue;
-        cur = max((LL)  1LL + min(dn[a[i]] + d1[mx],d1[a[i]] + dn[mx]),cur);
-    }
-
-    int mx2 = a[0];
-    for (int i = 0; i < k; i++){
-        if (dn[mx2] < dn[a[i]] ) mx2 = a[i];
-    }
-
-    for (int i = 0; i < k; i++){
-        if (a[i] == mx2) continue;
-        cur = max((LL) 1LL + min(dn[a[i]] + d1[mx2],d1[a[i]] + dn[mx2]),cur);
-    }
-    LL ans = min((LL)d1[n],cur);
+    ans = min(ans,d1[n]);
     cout << ans << endl;
 }
