@@ -2,9 +2,10 @@ struct SegTree{
     #define T int // Type
     vector<T> tree;
     vector<T> a;
-    const int MYZERO = ; //ZERO OF F
+    const T MYZERO = ; //ZERO OF F
+    int n;
     SegTree(vector<int>&v){
-        int n = v.size();
+        n = v.size();
         a.assign(n, 0);
         tree.assign(4*n, 0);
         for(int i = 0; i < n; i++)
@@ -24,6 +25,9 @@ struct SegTree{
         build(2*node+1,mid+1,end);
         tree[node] = merge(tree[2*node],tree[2*node + 1]);
     }
+    T query ( int l, int r){
+        return query (1,0, n -1 ,l,r) ;
+     }
     T query (int node, int start, int end, int l, int r){
         if (r < start or end < l) return MYZERO;
         if (l <= start  && end <= r) return tree[node];

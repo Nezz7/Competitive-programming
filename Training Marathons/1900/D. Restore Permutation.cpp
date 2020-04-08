@@ -1,21 +1,34 @@
+#include <bits/stdc++.h>
+#define f first
+#define s second
+#define endl '\n'
+#define LL long long
+#define LD long double
+#define pb push_back
+#define sz(a) (int)a.size()
+#define all(a) a.begin(),a.end()
+#define rall(a) a.rbegin(),a.rend()
+#define debug(x) cerr << #x << " is " << x << endl;
+using namespace std;
+int const MAXN = 2e6 + 9;
 struct Lazy{
-    #define T  //DEFINE
+    #define T pair<LL,LL> //DEFINE
     vector<LL> lazy;
     vector<T> tree;
     vector<LL> a;
     int n;
-    const T MYZERO = ; //ZERO OF F
+    const T MYZERO = {1e16,0}; //ZERO OF F
     Lazy(vector<LL>&v){
         n = v.size();
         a.assign(n, 0);
-        tree.assign(4*n,); // DEFINE
-        lazy.assign(4*n, 0);
+        tree.assign(4*n, {0,0});
+        lazy.assign(4*n, 0);;
         for(int i = 0; i < n; i++)
             a[i] = v[i];
         build(1,0,n-1);
     }
     T merge(T x, T y){ // DEFINE
-        return 
+        return min(x,y);
     }
     void build (int node, int start, int end){
         if (start == end){
@@ -69,3 +82,22 @@ struct Lazy{
         return merge(p1 , p2);
     }
 };
+
+int main(){
+   // ios_base::sync_with_stdio (0),cin.tie(0);
+    int n;
+    cin >> n;
+    int ans[n];
+    vector<LL> v(n);
+    for (int i = 0; i < n; i++){
+        cin >> v[i];
+    }
+    Lazy tree(v);
+    for (int i = 0; i < n; i++){
+        int mn = -tree.query(0,n-1).second;
+        ans[mn] = i + 1;
+        tree.update(mn,n-1,-(i+1));
+        tree.update(mn,mn,1e11);
+    }
+    for (auto cur : ans) cout << cur << ' ';
+}
