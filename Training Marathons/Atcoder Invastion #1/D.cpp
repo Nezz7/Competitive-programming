@@ -9,22 +9,27 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
-int l[MAXN],r[MAXN];
-LL dp[MAXN];
+LL x[MAXN],y[MAXN];
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    for (int i = 0; i < 100; i++){
-        for (int j = 0; j < 100; j++){
-            for (int k = 0; k < 100; k++){
-            for (int c = 0; c < 100; c++){
-                int f = i * j + i;
-                int s = k - c * j;
-                int th = j + k + j ;
-                if (  f == 28 &&  s == 2 && th == 62){
-                    cout << i << ' ' << j << ' ' << k << ' ' << c << endl;
-                }
-            }
-            }
+    int T;
+    cin >> T;
+    while (T--){
+        int n,m,k;
+        cin >> n >> m >> k;
+        for(int i = 0; i < k; ++i){
+            cin >> x[i] >> y[i];
         }
+        LL ans = 0;
+        for(int i = 0; i < k; i++){
+            int cur = 0;
+            LL r = 0, c = 0;
+            for(int j = 0; j < k; j++){
+                if ( x[j]< x[i] && y[j] < y[i]) cur++,r = max(r,x[j]),c=max(c,y[j]);
+            }
+            cout << cur <<' '<< x[i] <<' '<< y[i] << ' ' << r * c << " " <<  x[i] * y[i] - r * c<< endl;
+            if(cur % 2      ) ans += x[i] * y[i] - r * c;
+        }
+        cout << ans << " "<< n * m  - ans << endl; 
     }
 }

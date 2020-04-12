@@ -1,15 +1,6 @@
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
-#define f first
-#define s second
-#define endl '\n'
-#define LL long long
-#define pb push_back
-#define sz(a) (int)a.size()
-#define all(a) a.begin(),a.end()
-#define rall(a) a.rbegin(),a.rend()
-#define debug(x) cerr << #x << " is " << x << endl;
-using namespace std;
+
 using namespace __gnu_pbds;
 int const MAXN = 2e6 + 9;
 

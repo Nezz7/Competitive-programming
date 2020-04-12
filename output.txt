@@ -1,13 +1,2 @@
-visiting node 4 3 9 true
-visiting node 3 1 8 false
-visiting node 4 3 7 true
-visiting node 3 1 6 false
-visiting node 1 2 7 false
-visiting node 4 3 7 true
-visiting node 3 1 6 false
-visiting node 4 3 5 true
-visiting node 3 1 4 false
-visiting node 1 2 5 false
-visiting node 2 2 6 false
-2
-NO
+1.00
+2.50
