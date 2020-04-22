@@ -9,47 +9,39 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
+int depth[MAXN];
+int sz[MAXN];
+vector<LL> out;
 vector<vector<int>> g;
-int depth [MAXN];
-set<int> st;
-int mx = -1;
-int mn = 0;
-bool even = false, odd = false;
 void dfs (int node, int par){
-    if (node != par) depth[node] = 1 + depth[par];
-    mx++;
-    if(sz(g[node]) == 1){
-        if(!st.count(par)){
-            st.insert(par);
-        }else mx--;
-        if(depth[node] & 1) odd = true;
-        else even = true;
+    if (node != 1){
+        depth[node] = depth[par] + 1;
     }
+    sz[node] = 1;
     for(auto child : g[node]){
         if (child == par) continue;
         dfs(child,node);
+        sz[node] += sz[child];
     }
+    out.pb(depth[node] - sz[node] + 1);
 }
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    int n;
-    cin >> n;
+    int n,k;
+    cin >> n >> k;
     g.resize(n+1);
-    if(n == 2){
-        cout << 1 << ' ' << 1;
-        return 0;
-    }
-    int root = 1;
     for (int i = 1; i < n; i++){
         int u,v;
         cin >> u >> v;
         g[u].pb(v);
         g[v].pb(u);
-        if(sz(g[u]) > 1) root = u;
-        if(sz(g[v]) > 1) root = v;
     }
-    dfs(root,root);
-    if (odd && even) mn = 3;
-    else mn = 1;
-    cout << mn << ' ' << mx << endl;
+    dfs(1,1);
+    sort(all(out));
+    reverse(all(out));
+    LL ans = 0;
+    for(int i = 0; i < k; i++){
+        ans += out[i];
+    }
+    cout << ans << endl;
 }

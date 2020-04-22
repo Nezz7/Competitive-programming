@@ -1,68 +1,84 @@
 #include <bits/stdc++.h>
- using namespace std;
- string s;
- int k;
- int n;
- int pal[501][501];
- int dp [501][501];
- int ans;
- int solve (int i, int k){
-    if (i == n){
-            j--;
-            i--;
-            if (k >= 1) return pal[i-j + 1][j];
-            return 1e9;
-    }
-    if (k < 0) return 1e9;
-    int & ret = dp[i][k];
-    if (ret != -1) return ret;
-    for (int )
-    et = min(solve (i+1,j+1,k),pal[i - j + 1][j] + solve(i+1,1,k-1));
- }
- void print (int i, int j, int k){
-    if (i == n){
-        j--;
-        i--;
-        int start = i - j +1;
-        string str = s.substr(start,j);
-        int m = str.size();
-        for (int k = 0; k <m/2; k++){
-            str[k]=str[m-1-k];
+#define endl '\n'
+#define LL long long
+#define LD long double
+#define pb push_back
+#define sz(a) (int)a.size()
+#define all(a) a.begin(),a.end()
+#define rall(a) a.rbegin(),a.rend()
+#define debug(x) cerr << #x << " is " << x << endl;
+using namespace std;
+int const MAXN = 500 + 9;
+int dp[MAXN][MAXN];
+int cnt[MAXN][MAXN];
+string s;
+int ans = 1e9;
+int cur;
+int n;
+void track(){
+    string ret ="";
+    int j = n -1 ;
+    bool first = true;
+    for(int i = n -1; i >= 0; i--){
+        int len = j - i + 1;
+        if(!cur) break;
+        if(ans == cnt[i][len + i - 1] + dp[i][cur - 1]){
+            cur--;
+            ans -= cnt[i][len + i - 1];
+            string ch = s.substr(i,len);
+            int l = sz(ch);
+            for(int k = 0; k < l / 2; k++){
+                if(ch[k] != ch[l - 1 - k]) ch[k] = ch[l - 1 - k]; 
+            }
+            j = i - 1;
+            if (!first)
+                ret = ch + "+" + ret;
+            else ret = ch,first = false;
         }
-        cout <<str;
+    }
+    int i = 0;
+    int len = j + 1;
+    string ch = s.substr(i,len);
+    int l = sz(ch);
+    for(int k = 0; k < l / 2; k++){
+        if(ch[k] != ch[l - 1 - k]) ch[k] = ch[l - 1 - k]; 
+    }
+    if(sz(ch) == 0){
+        cout << ret;
         return;
     }
-    if (ans == solve (i+1,j+1,k)){
-        print(i+1,j+1,k);
-        return ;
-    }
-    int start = i - j +1;
-    string str = s.substr(start,j);
-    int m = str.size();
-    for (int k = 0; k <m/2; k++){
-        str[k]=str[m-1-k];
-    }
-    cout <<str<< "+";
-    ans-=pal[i - j + 1][j];
-    print(i+1,1,k-1);
- }
- int main (){
+    if (!first)
+        ret = ch + "+" + ret;
+    else ret = ch,first = false;
+    cout << ret;
+}
+int main(){
+    ios_base::sync_with_stdio (0),cin.tie(0);
+    int k;
     cin >> s >> k;
     n = s.size();
-    memset(dp,-1,sizeof dp);
-    // we can do it in o(n^2)
-    for (int i = 0; i < n; i++){
-        for (int j = 1; j <= n - i ; j++){
-            int cur = 0;
-            string str = s.substr(i,j);
-            int m = str.size();
-            for (int k = 0; k <m/2; k++){
-                cur += (str[k]!=str[m-1-k]);
-            }
-            pal[i][j]=cur;
+    for (int i = 0; i < n; i++)
+        for(int j = i; j < n; j++){
+            int len = j - i + 1;
+            for(int k = 0; k < len/2; k++){
+                if(s[i + k] != s[j - k]) cnt[i][j]++;
+            } 
+        }   
+    for(int i = 0; i <= n; i++)
+        for(int j = 0; j <= n; j++)
+            dp[i][j] = 1e9;
+    dp[0][0] = 0;
+    for(int i = 0; i <= n; i++){
+        for(int j = 0; j <= n; j++){
+            for(int len = 1; i + len <= n; len++)
+                dp[i + len][j + 1] = min (dp[i + len][j + 1], cnt[i][i + len - 1] + dp[i][j]);
         }
     }
-    ans = solve (0,k);
-    cout << ans  << "\n";
-    print(0,1,k);
- }
+    for(int i = 0; i <= k; i++){
+        ans = min(ans, dp[n][i]);
+        if(dp[n][i] == ans) cur = i;
+    }
+    cout << ans << endl;
+    track();
+
+}   

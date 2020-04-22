@@ -1,17 +1,11 @@
+#define T  //DEFINE
+LL lazy[4*MAXN];
+T tree[4*MAXN];
 struct Lazy{
-    #define T  //DEFINE
-    vector<LL> lazy;
-    vector<T> tree;
-    vector<LL> a;
     int n;
     const T MYZERO = ; //ZERO OF F
-    Lazy(vector<LL>&v){
-        n = v.size();
-        a.assign(n, 0);
-        tree.assign(4*n,); // DEFINE
-        lazy.assign(4*n, 0);
-        for(int i = 0; i < n; i++)
-            a[i] = v[i];
+    Lazy(int sz){
+        n = sz;
         build(1,0,n-1);
     }
     T merge(T x, T y){ // DEFINE
@@ -19,7 +13,7 @@ struct Lazy{
     }
     void build (int node, int start, int end){
         if (start == end){
-            tree[node] = {a[start],-start};
+            tree[node] =  // DEFINE
             return;
         }
         int mid = (start + end) / 2;
@@ -29,10 +23,10 @@ struct Lazy{
     }
     void propagate(int node, int start, int end){
             if(lazy[node] != 0){ 
-                tree[node].first += lazy[node];  // This node needs to be updated 
+                tree[node]   // This node needs to be updated 
             if(start != end){
-                lazy[node*2] += lazy[node];                 
-                lazy[node*2+1] += lazy[node];                
+                lazy[node*2]                 
+                lazy[node*2+1]                
             }
             lazy[node] = 0;                                  
         }

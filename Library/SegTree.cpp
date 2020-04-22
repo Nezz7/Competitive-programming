@@ -1,15 +1,10 @@
+int tree[4*MAXN];
 struct SegTree{
     #define T int // Type
-    vector<T> tree;
-    vector<T> a;
     const T MYZERO = ; //ZERO OF F
     int n;
-    SegTree(vector<int>&v){
-        n = v.size();
-        a.assign(n, 0);
-        tree.assign(4*n, 0);
-        for(int i = 0; i < n; i++)
-            a[i] = v[i];
+    SegTree(int sz){
+        n = sz;
         build(1,0,n-1);
     }
     T merge(T a, T b){ // DEFINE
@@ -47,7 +42,10 @@ struct SegTree{
         else 
             update(2*node  + 1,mid + 1, end,idx,val);
         
-        tree[node] = merge(tree[2*node],tree[2*node + 1]);    
+        tree[node] = merge(tree[2*node], tree[2*node + 1]);    
+    }
+    void update (int idx, int val){
+        update(1, 0, n - 1, idx, val);
     }
 };
 int main (){
