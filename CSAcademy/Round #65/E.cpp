@@ -6,17 +6,18 @@
 #define sz(a) (int)a.size()
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
-#define debug(x) cerr << #x << " is " << x << endl;
+template<typename... T>
+void db(T&&... args) { 
+	((cout<< args << " "), ...);
+    cout << endl;
+}
 using namespace std;
-int const MAXN = 2e6 + 9;
+int const MAXN = 1000 + 9;
+int a[MAXN][MAXN];
+LL cnt[5];
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    string s;
-    cin >> s;
-    int n = s.size();
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j <= i; j++)
-            cout << s[j];
-        cout << endl;
-    }
+    string a = "omar";
+    int x = 2;
+    db(x,a);
 }

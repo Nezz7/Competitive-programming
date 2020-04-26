@@ -12,6 +12,7 @@ struct Lazy{
         return 
     }
     void build (int node, int start, int end){
+        lazy[node] = 0;
         if (start == end){
             tree[node] =  // DEFINE
             return;

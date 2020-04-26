@@ -11,12 +11,19 @@ using namespace std;
 int const MAXN = 2e6 + 9;
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    string s;
-    cin >> s;
-    int n = s.size();
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j <= i; j++)
-            cout << s[j];
-        cout << endl;
+    int n;
+    cin >> n;
+    set<pair<int,int>> st;
+    for(int i = 0; i < n - 1; i++){
+        int x,y;
+        cin >> x >> y;
+        st.insert(minmax(x,y));
     }
+    int cnt = 0;
+      for(int i = 0; i < n - 1; i++){
+        int x,y;
+        cin >> x >> y;
+        cnt += st.count(minmax(x,y));
+    }
+    cout << cnt;
 }

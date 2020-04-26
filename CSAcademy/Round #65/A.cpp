@@ -13,10 +13,10 @@ int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
     string s;
     cin >> s;
+    string p;
+    cin >> p;
     int n = s.size();
     for(int i = 0; i < n; i++){
-        for(int j = 0; j <= i; j++)
-            cout << s[j];
-        cout << endl;
+        cout << p[s[i] - 'a'];
     }
 }

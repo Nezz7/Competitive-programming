@@ -11,12 +11,13 @@ using namespace std;
 int const MAXN = 2e6 + 9;
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    string s;
-    cin >> s;
-    int n = s.size();
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j <= i; j++)
-            cout << s[j];
-        cout << endl;
+    int t;
+    cin >> t;
+    while(t--){
+        LL x,y;
+        cin >> x >> y;
+        if(x - y == 1){
+            cout << "NO" << endl;
+        }else cout << "YES" << endl;
     }
 }
