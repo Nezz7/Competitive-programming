@@ -11,15 +11,16 @@ using namespace std;
 int const MAXN = 2e6 + 9;
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    int t;
-    cin >> t;
-    while(t--){
-        LL x,y;
-        cin >> x >> y;
-        LL a,b;
-        cin >> a >> b;
-        b = min(b,2*a);
-        LL ans = abs(x-y) * a + b * min(x,y);
-        cout << ans << endl;
+    int d;
+    cin >> d;
+    LL ans = 100;
+    LL last = 1e18;
+    while(d--){
+        LL cur = 0;
+        cin >> cur;
+        if(cur > last)
+            ans += min(ans/last,100000LL) * (cur - last);
+        last = cur;
     }
+    cout << ans;
 }

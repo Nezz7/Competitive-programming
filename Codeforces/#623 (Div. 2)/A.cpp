@@ -13,13 +13,13 @@ int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
     int t;
     cin >> t;
-    while(t--){
-        LL x,y;
-        cin >> x >> y;
-        LL a,b;
-        cin >> a >> b;
-        b = min(b,2*a);
-        LL ans = abs(x-y) * a + b * min(x,y);
+    while (t--){
+        int a,b,x,y;
+        cin >> a >> b >> x >> y;
+        int ans = b * (x);
+        ans = max(ans,b * (a - x - 1));
+        ans = max(ans,a * (b - y - 1));
+        ans = max(ans,a * (y));
         cout << ans << endl;
     }
 }
