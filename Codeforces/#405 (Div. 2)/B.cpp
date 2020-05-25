@@ -9,37 +9,39 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
+int vis[MAXN];
+LL e;
+LL cur;
 vector<vector<int>> g;
-vector<int> out[MAXN];
-int cur;
-void dfs(int node, int par){
+void dfs(int node){
+    vis[node] = 1;
+    cur ++;
+    e += sz(g[node]);
     for(auto child : g[node]){
-        if(child == par) continue;
-        out[child].pb(++cur);
-    }
-    out[node].pb(++cur);
-    for(int i = sz(g[node]) - 1; i >= 0; i--){
-        int child = g[node][i];
-        if(child == par) continue;
-        dfs(child,node);
+        if(!vis[child]) dfs(child);
     }
 }
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
     g.resize(n + 1);
-    for(int i = 1; i < n; i++){
+    for(int i = 0; i < m; i++){
         int u, v;
         cin >> u >> v;
         g[u].pb(v);
         g[v].pb(u);
     }
-    cur = 1;
-    out[1].pb(cur);
-    dfs(1,1);
+    bool cond = true;
     for(int i = 1; i <= n; i++){
-        for(auto x : out[i]) cout << x << ' ';
-        cout << endl;
+        if(!vis[i]){
+            e = 0;
+            cur = 0;
+            dfs(i);
+            e /= 2;
+            if(cur * (cur - 1) / 2 != e) cond = false;
+        }
     }
+    if(cond) cout << "YES";
+    else cout << "NO";
 }

@@ -6,10 +6,6 @@
         this->n = n;
         bit.assign(n, 0);
     }
-    BIT(vector<T> a) : BIT(a.size()) {
-        for (size_t i = 0; i < a.size(); i++) 
-            add(i, a[i]);
-    }
     T sum(int r) {
         T ret = 0;
         for (; r >= 0; r = (r & (r + 1)) - 1) 

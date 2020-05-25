@@ -24,5 +24,5 @@ LL fast(LL b, LL e){
 }
 
 inline LL inv(LL x){
-    return fast(x,mod-2);
+    return fast(x ,mod - 2);
 }
