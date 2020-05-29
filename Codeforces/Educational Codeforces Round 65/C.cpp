@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
-#define f first
-#define s second
 #define endl '\n'
 #define LL long long
+#define LD long double
 #define pb push_back
 #define sz(a) (int)a.size()
 #define all(a) a.begin(),a.end()
@@ -10,17 +9,15 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
-vector<pair<LL,pair<int,int>>> edges;
-vector<vector<pair<int,int>>> g;
 struct DSU {
-    vector<int> root,size;
+    vector<int> root,sz;
     int cc ;
     DSU(int n){
-        root.resize(n + 1);
-        size.resize(n + 1);
+        root.resize(n+1);
+        sz.resize(n+1);
         for (int i = 0; i <= n; i++){
             root[i] = i;
-            size[i] = 1;
+            sz[i] = 1;
         }
         cc = n;
     }
@@ -32,35 +29,33 @@ struct DSU {
         u = find_set(u);
         v = find_set(v);
         if ( u == v ) return false;
-        if(size[u] < size[v]) swap (u,v);
+        if(sz[u] < sz[v]) swap (u,v);
         root[v] = u;
-        size[u] += size[v];
+        sz[u] += sz[v];
         cc--;
         return true;
     }
 };
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    int n,m;
+    int n, m;
     cin >> n >> m;
-    DSU dsu(n);
-    g.resize(n+1);
-    for (int i = 0; i < m; i++){
-        int u,v,w;
-        cin >> u >> v >> w;
-        edges.push_back({w,{u,v}});
-    }
-    sort(all(edges));
-    LL mst = 0;
-    for(auto cur : edges){
-        LL w = cur.first;
-        int u = cur.second.first;
-        int v = cur.second.second;
-        if(dsu.union_set(u,v)){
-            g[u].emplace_back(v,w);
-            g[v].emplace_back(u,w);
-            mst += w;
+    DSU dsu (n + 1);
+    for(int i = 0; i < m; i++){
+        int k;
+        cin >> k;
+        int u;
+        if(k){
+            cin >> u;
+            for(int j = 0; j < k - 1; j++){
+                int v;
+                cin >> v;
+                dsu.union_set(u,v);
+            }
         }
     }
-    cout << mst;
+    for(int i = 1; i <= n; i++){
+        int x = dsu.find_set(i);
+        cout << dsu.sz[x] << " ";
+    }
 }
