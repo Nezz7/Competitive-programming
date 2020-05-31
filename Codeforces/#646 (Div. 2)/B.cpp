@@ -9,11 +9,7 @@
 #define debug(x) cerr << #x << " is " << x << endl;
 using namespace std;
 int const MAXN = 2e6 + 9;
-
-void brute(){
-
-
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
- 
+    
 }

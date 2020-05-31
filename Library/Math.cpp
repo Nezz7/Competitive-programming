@@ -4,25 +4,62 @@ int gcd(int a, int b){
     if(a == 0)return b;
     return gcd(b % a, a);
 }
-inline LL add(LL x, LL y){
+LL add(LL x, LL y){
     x += y;
     if(x >= mod) x -= mod;
     return x;
 }
-inline LL sub(LL x, LL y){
+LL sub(LL x, LL y){
     x -= y;
     if(x < 0) x += mod;
     return x;
 }
-inline LL mul(LL x, LL y){
+LL mul(LL x, LL y){
     return x * 1ll * y % mod;
 }
 LL fast(LL b, LL e){
     if(!e)return 1;
-    if(e&1)return b * 1ll * fast(b,e-1) % mod;
+    if(e & 1)return b * 1ll * fast(b, e-1) % mod;
     return fast(b * 1ll * b % mod, e >> 1);
 }
 
-inline LL inv(LL x){
+ LL inv(LL x){
     return fast(x ,mod - 2);
+}
+
+void phi_1_to_n(int n) {
+    vector<int> phi(n + 1);
+    phi[0] = 0;
+    phi[1] = 1;
+    for (int i = 2; i <= n; i++)
+        phi[i] = i;
+
+    for (int i = 2; i <= n; i++) {
+        if (phi[i] == i) {
+            for (int j = i; j <= n; j += i)
+                phi[j] -= phi[j] / i;
+        }
+    }
+}
+void mod_inv(int m){
+    inv[1] = 1;
+    for(int i = 2; i < m; ++i)
+        inv[i] = (m - (m/i) * inv[m%i] % m) % m;
+}
+int is_prime[MAXN],u[MAXN];
+int moebus_inversion(){
+    /*
+    μ(n) = 1 if n is a square-free positive integer with an even number of prime factors.
+    μ(n) = −1 if n is a square-free positive integer with an odd number of prime factors.
+    μ(n) = 0 if n has a squared prime factor.*/
+    is_prime[1] = 1;
+    for(int i = 1; i < MAXN; i++)
+        u[i] = 1;
+    for(int i = 2; i < MAXN; i++){
+        if(!is_prime[i]){
+            u[i] = -1;
+            for(int j = 2 * i; j < MAXN; j += i)
+                is_prime[j] = i, u[j] = (j % (i * 1LL * i)) ? - u[j] : 0; 
+        }
+    }
 }
