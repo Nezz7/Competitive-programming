@@ -1,9 +1,4 @@
 const LL mod = 1e9 + 7;
-int gcd(int a, int b){
-    if(a > b)return gcd(b, a);
-    if(a == 0)return b;
-    return gcd(b % a, a);
-}
 LL add(LL x, LL y){
     x += y;
     if(x >= mod) x -= mod;
@@ -62,4 +57,9 @@ int moebus_inversion(){
                 is_prime[j] = i, u[j] = (j % (i * 1LL * i)) ? - u[j] : 0; 
         }
     }
+}
+int gcd(int a, int b){
+    if(a > b)return gcd(b, a);
+    if(a == 0)return b;
+    return gcd(b % a, a);
 }
