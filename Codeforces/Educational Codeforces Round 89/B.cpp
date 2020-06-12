@@ -11,5 +11,19 @@ using namespace std;
 int const MAXN = 2e6 + 9;
 int main(){
     ios_base::sync_with_stdio (0),cin.tie(0);
-    
+    int t;
+    cin >> t;
+    while(t--){
+        int n, x, m;
+        cin >> n >> x >> m;
+        int l = x, r = x;
+        for(int i = 0; i < m; i++){
+            int u, v;
+            cin >> u >> v;
+            if(r < u or v < l) continue;
+            l = min(u,l);
+            r = max(v,r);
+        }
+        cout << r - l + 1 << endl;
+    }
 }
