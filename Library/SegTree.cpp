@@ -5,7 +5,7 @@ struct SegTree{
     int n;
     SegTree(int sz){
         n = sz;
-        build(1,0,n-1);
+        build(1, 0, n - 1);
     }
     T merge(T a, T b){ // DEFINE
         return 
@@ -16,12 +16,12 @@ struct SegTree{
             return;
         }
         int mid = (start + end) / 2;
-        build(2*node,start,mid);
-        build(2*node+1,mid+1,end);
-        tree[node] = merge(tree[2*node],tree[2*node + 1]);
+        build(2*node, start, mid);
+        build(2*node + 1, mid + 1, end);
+        tree[node] = merge(tree[2*node], tree[2*node + 1]);
     }
-    T query ( int l, int r){
-        return query (1,0, n -1 ,l,r) ;
+    T query (int l, int r){
+        return query (1, 0, n -1, l, r) ;
      }
     T query (int node, int start, int end, int l, int r){
         if (r < start or end < l) return MYZERO;
@@ -38,22 +38,12 @@ struct SegTree{
         }
         int mid = (start + end) / 2;
         if (idx <= mid)
-            update(2*node,start,mid,idx,val);
+            update(2*node, start, mid, idx, val);
         else 
-            update(2*node  + 1,mid + 1, end,idx,val);
-        
+            update(2*node + 1, mid + 1, end,idx,val);
         tree[node] = merge(tree[2*node], tree[2*node + 1]);    
     }
     void update (int idx, int val){
         update(1, 0, n - 1, idx, val);
     }
 };
-int main (){
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++) cin >> a[i];
-    build(1,0,n-1);
-    cout << query (1,0,n-1,1,3) 
-    update (1,0,n-1,n-1,5);
-    cout << query (1,0,n-1,1,3);
-}
