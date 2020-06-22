@@ -1,7 +1,6 @@
 *.exe
 *.o
 .vscode
-Codeforces/
-Scheduling
+gitScheduling
 Winter Cup
 .gitignore

@@ -1,0 +1,60 @@
+/***
+    Variables Names :
+    Cr : Regular hour capacity
+    Co : Over time capacity
+    I  : Type of treatment
+    Wi : The average demand
+    Ti : Wait time target
+    Ci : Wait time penalty
+    h  : Over time cost
+    M  : Length of the booking horizon
+    mat: matrix [Cr+Co][M] the current planning 
+    ri : r[i][j] length of the jth appointment of type i
+    li : the number of appointment of type i
+    a  : a[i] the number of customers of type i already waiting  
+    d  : jth day  
+
+***/
+Input  :
+    -First line contain 4 integers : Cr Co h M I 
+    -I integers Wi
+    -I integers Ti
+    -I integers Ci
+    -for the next I lines
+      An integer li 
+      then li  integers represents r[i][j]
+    -for the next I lines
+        An integer ai representing the number of client already waiting of the ith type
+        then ai number representing the exact number of day waiting for the ith client
+    -An integer representing d planning day 
+    -Reading Matrix Cr+C0 X M
+    -An integer nc representing the number of canceling appointment
+        Each of nc lines contains 4 integers : type of client - the day starting canceling from - the seance start canceling from - 0 or 1 cancel from regular hour / over time 
+Exmple  :
+    5 2 100 7 3
+    2 2 2 
+    3 2 1
+    50 50 50 
+    2
+    2 1
+    1 
+    1
+    3
+    1 2 1
+    2
+    2 5
+    0 
+    1
+    4
+    3
+    1 1 1 1 0 0 0
+    1 2 2 1 0 0 0
+    1 1 3 0 0 0 0
+    1 3 3 0 0 0 0
+    2 0 0 0 0 0 0
+    3 3 3 0 0 0 0
+    0 3 0 0 0 0 0
+    3
+    0 0 0 0
+    1 1 0 0
+    2 1 1 1
