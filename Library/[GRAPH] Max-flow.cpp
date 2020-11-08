@@ -1,4 +1,5 @@
 
+//O(V²E)
 struct Dinic {
     const LL flow_inf = 1e18;
     struct FlowEdge {

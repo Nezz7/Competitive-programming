@@ -1,5 +1,4 @@
 using pii = pair<int,int>;
-int const MAXN = 2e6 + 9;
 struct suffixAutomaton{
     static int const M = 26; // Careful ! size of alphabet
 	struct state{
