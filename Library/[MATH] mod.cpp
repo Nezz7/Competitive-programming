@@ -63,3 +63,16 @@ int gcd(int a, int b){
     if(a == 0)return b;
     return gcd(b % a, a);
 }
+
+int C[100][100]; 
+int binomialCoeff(int n, int k) { 
+    int i, j; 
+    for (i = 0; i <= n; i++) { 
+        for (j = 0; j <= min(i, k); j++) { 
+            if (j == 0 || j == i) 
+                C[i][j] = 1; 
+            else
+                C[i][j] = C[i - 1][j - 1] + C[i - 1][j]; 
+        } 
+    } 
+} 

@@ -5,7 +5,6 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define loop(i,start,end) for(int i=start;i<=end;++i)
 #define rloop(i,start,end) for(int i=start;i>=end;--i)
-//#define int long long                         //***************************************
 const int INF = 2e9;
 const LL INFLL = 4e18L;
 const int MOD = 0;
